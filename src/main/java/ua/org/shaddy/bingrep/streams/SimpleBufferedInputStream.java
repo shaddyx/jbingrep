@@ -1,4 +1,4 @@
-package ua.org.shaddy.bingrep;
+package ua.org.shaddy.bingrep.streams;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,13 +31,16 @@ public class SimpleBufferedInputStream extends InputStream{
 	
 	@Override
 	public int read() throws IOException {
+		if (eof){
+			return -1;
+		}
 		if (pointer == -1 || pointer >= buffer.length){
 			fill();
 		}
 		if (eof){
 			return -1;
 		}
-		return buffer[pointer++];
+		return buffer[pointer++] & 255;
 	}
 
 	@Override

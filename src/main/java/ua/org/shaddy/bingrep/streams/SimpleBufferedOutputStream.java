@@ -1,4 +1,4 @@
-package ua.org.shaddy.bingrep;
+package ua.org.shaddy.bingrep.streams;
 
 import java.io.IOException;
 import java.io.OutputStream;

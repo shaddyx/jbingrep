@@ -1,4 +1,4 @@
-package ua.org.shaddy.bingrep;
+package ua.org.shaddy.bingrep.streams;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.junit.Test;
+
+import ua.org.shaddy.bingrep.streams.SimpleBufferedInputStream;
 
 public class SimpleBufferedInputStreamTest {
 
