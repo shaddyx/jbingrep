@@ -9,17 +9,14 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		SimpleBufferedInputStream in = new SimpleBufferedInputStream(System.in);
 		SimpleBufferedOutputStream out = new SimpleBufferedOutputStream(System.out);
-		int counter = 0;
 		while (true){
-			counter ++;
 			int b = in.read();
 			if (b == -1){
 				break;
 			}
-		//	out.write(b);
+			out.write(b);
 		}
-		System.out.println(counter);
 		in.close();
-		//out.close();
+		out.close();
 	}
 }
