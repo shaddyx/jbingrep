@@ -20,16 +20,14 @@ public class SimpleBufferedInputStream extends InputStream{
 		this.buffer = new byte[bufferSize]; 
 	}
 	
-	private int fill() throws IOException{
+	private void fill() throws IOException{
 		if (!eof){
 			pointer = 0;
 			int count = is.read(buffer);
 			if (count == -1){
 				eof  = true;
 			}
-			return count;
 		}
-		return -1;
 	}
 	
 	@Override
