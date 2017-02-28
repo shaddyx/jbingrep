@@ -1,0 +1,80 @@
+buildscript {
+    repositories {
+    	mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+
+group = 'ua.org.shaddy.bingrep'
+version = '1.0.0-SNAPSHOT'
+description = """bingrep"""
+mainClassName = group + ".Main"
+targetCompatibility=1.8
+sourceCompatibility=1.8
+
+project.ext {
+	log4jVersion = "2.3"
+	slf4jVersion = "1.7.5"
+}
+
+
+repositories {
+    mavenCentral()
+    jcenter()
+   	maven {
+		url 'http://pecia.sourceforge.net/repository'
+		maven { url "https://github.com/shaddyx/maven_repository/raw/master/" }
+	}
+	maven {
+		url 'http://snapshots.repository.codehaus.org'
+	}
+}
+String getRuntimeClasspath() {
+    sourceSets.main.runtimeClasspath.collect { it.absolutePath }.join(':')
+}
+
+jar {
+    manifest.attributes("Main-Class": mainClassName)
+}
+
+
+dependencies {
+		//
+		//	logging
+		//
+        //Tests
+        testCompile 'junit:junit:4.12'
+        testCompile "org.mockito:mockito-core:1.9.5"
+}
+sourceSets {
+    main {
+                java {
+                    srcDir "src/main/java"
+                    resources {
+                		srcDirs = ["src/main/resources"]
+                		includes = ["**/*"]
+            		}
+                }
+        }
+        test {
+                java {
+                        srcDir "src/test/java"
+                        resources {
+                		srcDirs = ["src/test/resources"]
+                		includes = ["**/*"]
+            		}
+                }
+        }
+}
+
+
