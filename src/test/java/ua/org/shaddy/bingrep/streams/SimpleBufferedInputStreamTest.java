@@ -21,11 +21,23 @@ public class SimpleBufferedInputStreamTest {
 
 	@Test
 	public void testRead() {
+		SimpleBufferedInputStream sbis = new SimpleBufferedInputStream(createBis());
+		for (int i = 0; i < 65535; i++) {
+			try {
+				assertEquals((byte) (i % 255), (byte) sbis.read());
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+	
+	@Test
+	public void testReadMultiSizes() {
 		for (int j = 1; j<1024; j++){
 			SimpleBufferedInputStream sbis = new SimpleBufferedInputStream(createBis(), j);
 			for (int i = 0; i < 65535; i++) {
 				try {
-					assertEquals((byte) (i % 255), sbis.read());
+					assertEquals((byte) (i % 255), (byte) sbis.read());
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}

@@ -21,19 +21,19 @@ public class SimpleBufferedInputStream extends InputStream{
 	}
 	
 	private int fill() throws IOException{
-		pointer = 0;
-		int count = is.read(buffer);
-		if (count == -1){
-			eof  = true;
+		if (!eof){
+			pointer = 0;
+			int count = is.read(buffer);
+			if (count == -1){
+				eof  = true;
+			}
+			return count;
 		}
-		return count;
+		return -1;
 	}
 	
 	@Override
 	public int read() throws IOException {
-		if (eof){
-			return -1;
-		}
 		if (pointer == -1 || pointer >= buffer.length){
 			fill();
 		}
