@@ -8,6 +8,7 @@ public class SimpleBufferedInputStream extends InputStream{
 	private final InputStream is;
 	private final byte[] buffer;
 	private int pointer = -1;
+	private int dataSize = -1;
 	private boolean eof = false;
 	
 
@@ -23,8 +24,8 @@ public class SimpleBufferedInputStream extends InputStream{
 	private void fill() throws IOException{
 		if (!eof){
 			pointer = 0;
-			int count = is.read(buffer);
-			if (count == -1){
+			dataSize = is.read(buffer);
+			if (dataSize == -1){
 				eof  = true;
 			}
 		}
@@ -32,7 +33,7 @@ public class SimpleBufferedInputStream extends InputStream{
 	
 	@Override
 	public int read() throws IOException {
-		if (pointer == -1 || pointer >= buffer.length){
+		if (pointer == -1 || pointer >= dataSize){
 			fill();
 		}
 		if (eof){

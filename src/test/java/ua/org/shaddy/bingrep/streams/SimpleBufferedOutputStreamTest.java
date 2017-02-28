@@ -14,7 +14,6 @@ public class SimpleBufferedOutputStreamTest {
 
 	@Test
 	public void testWrite() throws IOException {
-	
 		ByteArrayOutputStream barr = new ByteArrayOutputStream();
 		OutputStream bos = new SimpleBufferedOutputStream(barr);
 		for (int i = 0; i < 65535; i++) {
@@ -26,7 +25,6 @@ public class SimpleBufferedOutputStreamTest {
 		for (int i = 0; i < 65535; i++) {
 			assertEquals((byte) (i % 255), arr[i]);
 		}
-		
 	}
 	
 	@Test
