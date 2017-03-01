@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ua.org.shaddy.bingrep.grammar.tokenizer.impl.AndSignToken;
+import ua.org.shaddy.bingrep.grammar.tokenizer.impl.CloseBraceToken;
 import ua.org.shaddy.bingrep.grammar.tokenizer.impl.CommaSignToken;
 import ua.org.shaddy.bingrep.grammar.tokenizer.impl.IntegerToken;
+import ua.org.shaddy.bingrep.grammar.tokenizer.impl.OpenBraceToken;
 import ua.org.shaddy.bingrep.grammar.tokenizer.impl.OrSignToken;
 import ua.org.shaddy.bingrep.grammar.tokenizer.impl.TokenString;
 
@@ -13,7 +15,6 @@ public class Tokenizer {
 
 	private final TokenString tokenString;
 	private final IntegerParser intParser = new IntegerParser();
-	private final BracesParser bracesParser = new BracesParser();
 
 	//
 	// Tokens ()|&,
@@ -35,9 +36,11 @@ public class Tokenizer {
 		} else if (StrUtil.isDigit(tokenString.getFirstSymbol())) {
 			return new IntegerToken(intParser.parse(tokenString));
 		} else if (tokenString.checkSymbol('(')) {
-			String bracesStrings = bracesParser.parse(tokenString);
-			Tokenizer bracesTokenizer = new Tokenizer(bracesStrings);
-			bracesTokenizer.getTokens();
+			tokenString.popChar();
+			return new OpenBraceToken();
+		} else if (tokenString.checkSymbol(')')) {
+			tokenString.popChar();
+			return new CloseBraceToken();
 		} else if (tokenString.checkSymbol(',')) {
 			tokenString.popChar();
 			return new CommaSignToken();
