@@ -54,6 +54,7 @@ public class RulesAnalyzer {
 	public GrepRule analyze() {
 		if (tokens.getNext() instanceof OpenBraceToken) {
 			List<GrepRule> rulesList = getInnerRules(OpenBraceToken.class, CloseBraceToken.class);
+			
 		}
 		return null;
 
