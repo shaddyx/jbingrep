@@ -3,8 +3,11 @@ package ua.org.shaddy.bingrep.grammar.rules;
 import java.util.LinkedList;
 import java.util.List;
 
+import ua.org.shaddy.bingrep.grammar.rules.impl.IntegerRule;
 import ua.org.shaddy.bingrep.grammar.tokenizer.Token;
 import ua.org.shaddy.bingrep.grammar.tokenizer.impl.CloseBraceToken;
+import ua.org.shaddy.bingrep.grammar.tokenizer.impl.CommaSignToken;
+import ua.org.shaddy.bingrep.grammar.tokenizer.impl.IntegerToken;
 import ua.org.shaddy.bingrep.grammar.tokenizer.impl.OpenBraceToken;
 
 public class RulesAnalyzer {
@@ -17,11 +20,13 @@ public class RulesAnalyzer {
 	public RulesAnalyzer(TokenList tokens) {
 		this.tokens = tokens;
 	}
-
-	public TokenList getTokens() {
-		return tokens;
-	}
-
+	/**
+	 * returns inner tokens from start brace to end
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	
 	private TokenList getInnerTokens(Class<? extends Token> start, Class<? extends Token> end) {
 		List<Token> tokenList = new LinkedList<Token>();
 		if (!start.isInstance(tokens.getNext())) {
@@ -30,6 +35,9 @@ public class RulesAnalyzer {
 		tokens.poll();
 		int startTokens = 1;
 		while (!end.isInstance(tokens.getNext()) || startTokens != 1) {
+			if (tokens.getNext() == null) {
+				throw new RulesAnalyzerException("Missed end token:" + end.getName());
+			}
 			if (start.isInstance(tokens.getNext())) {
 				startTokens++;
 			} else if (end.isInstance(tokens.getNext())) {
@@ -54,10 +62,13 @@ public class RulesAnalyzer {
 	public GrepRule analyze() {
 		if (tokens.getNext() instanceof OpenBraceToken) {
 			List<GrepRule> rulesList = getInnerRules(OpenBraceToken.class, CloseBraceToken.class);
-			
+		} else if (tokens.getNext() instanceof IntegerToken) {
+			return new IntegerRule(tokens.poll());
+		} else if (tokens.getNext() instanceof CommaSignToken){
+			tokens.poll();
+			return analyze();
 		}
 		return null;
-
 	}
 
 }

@@ -57,8 +57,10 @@ public class Tokenizer {
 
 	public List<Token> getTokens() {
 		List<Token> list = new ArrayList<>();
-		while (getNextToken() != null) {
-			list.add(getNextToken());
+		
+		Token nextToken;
+		while ((nextToken = getNextToken()) != null) {
+			list.add(nextToken);
 		}
 		return list;
 	}

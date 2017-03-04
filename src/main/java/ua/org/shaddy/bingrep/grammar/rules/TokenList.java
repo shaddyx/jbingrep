@@ -13,6 +13,9 @@ public class TokenList {
 	}
 	
 	public Token getNext(){
+		if (tokens.size() == 0){
+			return null;
+		}
 		return tokens.get(0);
 	}
 	
@@ -25,6 +28,9 @@ public class TokenList {
 	}
 	
 	public Token poll(){
+		if (tokens.size() == 0){
+			return null;
+		}
 		return tokens.poll();
 	}
 	
