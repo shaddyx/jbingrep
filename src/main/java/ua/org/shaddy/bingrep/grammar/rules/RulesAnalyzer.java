@@ -1,5 +1,6 @@
 package ua.org.shaddy.bingrep.grammar.rules;
 
+import java.lang.reflect.Constructor;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -63,12 +64,35 @@ public class RulesAnalyzer {
 		if (tokens.getNext() instanceof OpenBraceToken) {
 			List<GrepRule> rulesList = getInnerRules(OpenBraceToken.class, CloseBraceToken.class);
 		} else if (tokens.getNext() instanceof IntegerToken) {
-			return new IntegerRule(tokens.poll());
+			return getSequence(IntegerToken.class);
 		} else if (tokens.getNext() instanceof CommaSignToken){
 			tokens.poll();
 			return analyze();
 		}
 		return null;
+	}
+	
+	private GrepRule getSequence(Class<IntegerToken> clazz) {
+		LinkedList<GrepRule> rules = new LinkedList<GrepRule>();
+		//new IntegerRule(((IntegerToken) tokens.poll()).getValue());
+		while (tokens.getNext() != null && clazz.isInstance(tokens.getNext()) || (tokens.getNext() instanceof CommaSignToken)){
+			if (!(tokens.getNext() instanceof CommaSignToken)){
+				Constructor<IntegerToken> constr = clazz.getConstructor(Object.class);
+				IntegerRule integerRule = (IntegerRule) constr.newInstance((((IntegerToken) tokens.getNext()).getValue()));
+				rules.add(constr.newInstance();
+			}
+			tokens.poll();
+		}
+		
+	}
+
+	public List<GrepRule> getRules(){
+		GrepRule rule;
+		LinkedList<GrepRule> rules = new LinkedList<GrepRule>();
+		while ((rule = analyze()) != null){
+			rules.add(rule);
+		}
+		return rules;
 	}
 
 }
