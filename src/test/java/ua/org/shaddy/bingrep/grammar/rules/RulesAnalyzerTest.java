@@ -37,7 +37,7 @@ public class RulesAnalyzerTest {
 			new IntegerToken(15)
 		});
 		GrepRule seq = new RulesAnalyzer(tokensList).getSequention();
-		System.out.println(seq);
+		//System.out.println(seq);
 		List<GrepRule> rules = ((SequentionRule) seq).getList();
 		
 		assertEquals(10, ((IntegerRule) rules.get(0)).getValue());
