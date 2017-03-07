@@ -1,6 +1,6 @@
 package ua.org.shaddy.bingrep.grammar.rules;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 import ua.org.shaddy.bingrep.grammar.rules.impl.IntegerRule;
+import ua.org.shaddy.bingrep.grammar.rules.impl.SequentionRule;
 import ua.org.shaddy.bingrep.grammar.tokenizer.Token;
 import ua.org.shaddy.bingrep.grammar.tokenizer.Tokenizer;
 import ua.org.shaddy.bingrep.grammar.tokenizer.impl.CommaSignToken;
@@ -35,7 +36,10 @@ public class RulesAnalyzerTest {
 			new CommaSignToken(),
 			new IntegerToken(15)
 		});
-		List<GrepRule> rules = new RulesAnalyzer(tokensList).getRules();
+		GrepRule seq = new RulesAnalyzer(tokensList).getSequention();
+		System.out.println(seq);
+		List<GrepRule> rules = ((SequentionRule) seq).getList();
+		
 		assertEquals(10, ((IntegerRule) rules.get(0)).getValue());
 		assertEquals(11, ((IntegerRule) rules.get(1)).getValue());
 		assertEquals(13, ((IntegerRule) rules.get(2)).getValue());
@@ -44,9 +48,9 @@ public class RulesAnalyzerTest {
 	
 	@Test
 	public void testAnalyzeTokens() {
-		List<Token> tokensCreated = createTokens("12,22,44,54");
-		List<GrepRule> rules = new RulesAnalyzer(tokensCreated).getRules();
-		System.out.println(rules);
+//		List<Token> tokensCreated = createTokens("12,22,44,54");
+//		List<GrepRule> rules = new RulesAnalyzer(tokensCreated).getSequention();
+//		System.out.println(rules);
 	}
 
 }

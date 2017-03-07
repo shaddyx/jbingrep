@@ -17,6 +17,7 @@ public class CheckValueGrepRule extends GrepRule{
 	}
 	@Override
 	public String toString() {
-		return "CheckValueGrepRule [value=" + value + "]";
+		return "CheckValueGrepRule [value=" + value + ", toString()=" + super.toString() + "]";
 	}
+	
 }
