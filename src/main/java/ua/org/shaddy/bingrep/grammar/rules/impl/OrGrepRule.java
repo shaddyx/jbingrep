@@ -1,20 +1,14 @@
 package ua.org.shaddy.bingrep.grammar.rules.impl;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import ua.org.shaddy.bingrep.grammar.pointers.GrepPointer;
+import ua.org.shaddy.bingrep.grammar.pointers.GrepPointersContainer;
 import ua.org.shaddy.bingrep.grammar.rules.GrepRule;
 
-public class OrGrepRule extends GrepRule {
-	private List<GrepRule> list = new LinkedList<GrepRule>();
-
-	public void add(GrepRule sequenction) {
-		list.add(sequenction);
-	}
-
+public class OrGrepRule extends SequenceRule {
 	@Override
-	public String toString() {
-		return "OrGrepRule [list=" + list + ", toString()=" + super.toString() + "]";
+	public void processPointers(GrepPointersContainer container) {
+		for (GrepRule rule: getList()){
+			container.add(new GrepPointer(this));
+		}
 	}
-
 }

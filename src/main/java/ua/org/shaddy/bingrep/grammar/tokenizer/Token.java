@@ -1,7 +1,5 @@
 package ua.org.shaddy.bingrep.grammar.tokenizer;
 
-import ua.org.shaddy.bingrep.grammar.tokenizer.impl.TokenString;
-
 public abstract class Token {
 	
 }

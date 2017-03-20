@@ -35,5 +35,5 @@ public class SequentionRule extends GrepRule {
 	public String toString() {
 		return "SequentionRule [list=" + list + ", toString()=" + super.toString() + "]";
 	}
-	
+
 }
