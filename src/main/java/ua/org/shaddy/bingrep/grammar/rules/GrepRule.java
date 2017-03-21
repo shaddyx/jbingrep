@@ -1,5 +1,6 @@
 package ua.org.shaddy.bingrep.grammar.rules;
 
+import ua.org.shaddy.bingrep.grammar.pointers.GrepPointer;
 import ua.org.shaddy.bingrep.grammar.pointers.GrepPointersContainer;
 
 public abstract class GrepRule {
@@ -15,7 +16,7 @@ public abstract class GrepRule {
 		this.parentRule = parentRule;
 	}
 	
-	public void processPointers(GrepPointersContainer container){
+	public void processPointers(GrepPointersContainer container, GrepPointer pointer){
 		//
 		//	TODO: override this if necessary
 		//

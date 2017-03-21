@@ -1,7 +1,6 @@
 package ua.org.shaddy.bingrep.grammar.pointers;
 
 import ua.org.shaddy.bingrep.grammar.rules.GrepRule;
-import ua.org.shaddy.bingrep.grammar.rules.impl.OrGrepRule;
 import ua.org.shaddy.bingrep.grammar.rules.impl.SequenceRule;
 
 public class GrepPointer {

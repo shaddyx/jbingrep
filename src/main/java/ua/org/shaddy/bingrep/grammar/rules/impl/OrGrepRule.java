@@ -5,10 +5,12 @@ import ua.org.shaddy.bingrep.grammar.pointers.GrepPointersContainer;
 import ua.org.shaddy.bingrep.grammar.rules.GrepRule;
 
 public class OrGrepRule extends SequenceRule {
+	
 	@Override
-	public void processPointers(GrepPointersContainer container) {
+	public void processPointers(GrepPointersContainer container, GrepPointer pointer) {
 		for (GrepRule rule: getList()){
-			container.add(new GrepPointer(this));
-		}
+			container.add(new GrepPointer(rule));
+		}	
 	}
+
 }

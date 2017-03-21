@@ -9,8 +9,6 @@ import ua.org.shaddy.bingrep.grammar.rules.GrepRule;
 import ua.org.shaddy.bingrep.grammar.rules.impl.CheckValueGrepRule;
 
 public class RuleChecker {
-	
-	long pos = 0;
 	private final GrepPointersContainer pointersContainer = new GrepPointersContainer();
 	
 	public RuleChecker(GrepRule rules) {
@@ -19,17 +17,13 @@ public class RuleChecker {
 
 	public void check(int b) {
 		for (GrepPointer pointer: pointersContainer){
-			pointer.getGrepRule().processPointers(pointersContainer);
+			pointer.getGrepRule().processPointers(pointersContainer, pointer);
 		}
-		
-		processPointers(pointersContainer);
-		check(pointersContainer, b);
-		
-		
-		
+		processPointers();
+		checkAndRemove(b);
 	}
 
-	private void check(GrepPointersContainer pointersContainer2, int b) {
+	private void checkAndRemove(int b) {
 		List<GrepRule> toRemove = new LinkedList<GrepRule>();
 		for (GrepPointer pointer: pointersContainer){
 			if (pointer.getGrepRule() instanceof CheckValueGrepRule){
@@ -41,10 +35,9 @@ public class RuleChecker {
 		pointersContainer.removeAll(toRemove);
 	}
 
-	private void processPointers(GrepPointersContainer pointersContainer2) {
+	private void processPointers() {
 		for (GrepPointer pointer: pointersContainer){
-			pointer.getGrepRule().processPointers(pointersContainer);
+			pointer.getGrepRule().processPointers(pointersContainer, pointer);
 		}
-		
 	}
 }
